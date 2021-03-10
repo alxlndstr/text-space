@@ -48,7 +48,7 @@ server.use(function(req, res, next) {
 });*/
 
 server.get('/', (req,res) => {
-		res.sendFile(__dirname + '/page/index.htm');
+	res.sendFile(__dirname + '/page/index.htm');
 });
 
 server.get('/src/:filename', (req,res) => {
