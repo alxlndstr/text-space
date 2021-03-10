@@ -1,7 +1,7 @@
 
 const PORT = 3000;
 var server = require('express')();
-var http = require('https').createServer(server);
+var http = require('http').createServer(server);
 var INDEX = '/page/index.htm';
 //server.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
