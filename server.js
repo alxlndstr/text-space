@@ -1,5 +1,5 @@
 
-const PORT = process.env.PORT || 80;
+const PORT = 3000;
 var server = require('express')();
 var http = require('https').createServer(server);
 var INDEX = '/page/index.htm';
@@ -20,6 +20,7 @@ var text = "";
 const pwidth = "500";
 const pheight = "500";
 console.log("init");
+io.listen(3001);
 
 for (i = 0;i<parseInt(pwidth)*parseInt(pheight);i++)
 {text += " "} //  'ˇ' + (parseInt(pwidth)*parseInt(pheight)) + 'ˇ'
