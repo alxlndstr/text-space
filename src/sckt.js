@@ -1,5 +1,5 @@
 
-const URL = "http://192.168.0.8:3000/";
+const URL = "https://text-space.herokuapp.com:3000/";
 
 
 const body = document.querySelector('body');
