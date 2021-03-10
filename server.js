@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 3000;
 var server = require('express')();
 var http = require('https').createServer(server);
 
-server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+http.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const options = {
 	cors: {
     origin: "*",
