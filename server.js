@@ -1,7 +1,7 @@
 
 const PORT = process.env.PORT || 3000;
 var server = require('express')();
-var http = require('http').createServer(server);
+var http = require('https').createServer(server);
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const options = {
@@ -11,7 +11,7 @@ const options = {
 }}
 const fs = require('fs');
 
-const io = require('socket.io')(http);
+const io = require('socket.io')(https);
 
 const block = 1;
 var text = "";
