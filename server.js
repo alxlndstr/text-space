@@ -1,17 +1,17 @@
 
 const PORT = process.env.PORT || 3000;
-const express = require('express')()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+const express = require('express');
+
+const server = express()
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const fs = require('fs');
-const httpServer = require("http").createServer(express);
-
-const io = require('socket.io')(httpServer, {
+const options = {
 	cors: {
     origin: "*",
     methods: ["GET", "POST"]
-}});
+}}
+const fs = require('fs');
+
+const io = require('socket.io')(server);
 
 const block = 1;
 var text = "";
@@ -61,6 +61,6 @@ express.get('/style', (req,res) => {
 	res.sendFile(__dirname + '/style/stylesheet.css');
 });
 
-express.listen(port, () => {
-  console.log(`http://localhost:${port}`)
+express.listen(PORT, () => {
+
 })
