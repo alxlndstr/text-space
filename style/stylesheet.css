@@ -7,7 +7,7 @@ div {
 	position: absolute; left: 0; top: 0;
 	padding: none;
 	font-family: "Lucida Console", "Courier New", monospace;
-	font-size: 12;
+	font-size: 14;
 	margin: none;
 	width: var(--pwidth);
 	height: var(--pheight);
