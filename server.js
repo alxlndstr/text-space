@@ -12,7 +12,7 @@ const options = {
 }}
 const fs = require('fs');
 
-const sio = require('socket.io')(http, options);
+const sio = require('socket.io');
 
 var io = sio(server) 
 
