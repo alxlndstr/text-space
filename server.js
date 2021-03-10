@@ -1,5 +1,5 @@
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 var server = require('express')();
 var http = require('http').createServer(server);
 var INDEX = '/page/index.htm';
@@ -12,9 +12,9 @@ const options = {
 }}
 const fs = require('fs');
 
-const io = require('socket.io')(http, options);
+const sio = require('socket.io')(http, options);
 
-io.listen(3001);
+var io = sio(server) 
 
 const block = 1;
 var text = "";
