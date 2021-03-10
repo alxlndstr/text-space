@@ -59,7 +59,3 @@ server.get('/src/:filename', (req,res) => {
 server.get('/style', (req,res) => {
 	res.sendFile(__dirname + '/style/stylesheet.css');
 });
-
-server.listen(PORT, () => {
-
-})
