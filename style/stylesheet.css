@@ -1,0 +1,21 @@
+:root {
+	--pwidth: 0ch;
+	--pheight: 0ch;	
+	}
+
+div { 
+	position: absolute; left: 0; top: 0;
+	padding: none;
+	font-family: "Lucida Console", "Courier New", monospace;
+	font-size: 12;
+	margin: none;
+	width: var(--pwidth);
+	height: var(--pheight);
+	color: #EEEEEE;
+	background-color: #111111;
+	resize:none;
+	display: block;
+	white-space: break-spaces;
+	overflow-wrap: anywhere;
+	border: none;
+}
