@@ -1,5 +1,5 @@
 
-const URL = "https://text-space.herokuapp.com:3000/";
+const URL = "https://text-space.herokuapp.com/";
 
 
 const body = document.querySelector('body');
