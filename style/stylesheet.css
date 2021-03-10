@@ -1,8 +1,10 @@
 :root {
 	--pwidth: 500ch;
-	--pheight: 500ch;	
+	--pheight: 500ex;	
 	}
-
+body {
+	background-color
+}
 div { 
 	position: absolute; left: 0; top: 0;
 	padding: none;
