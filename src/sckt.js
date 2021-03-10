@@ -11,7 +11,7 @@ var selection;
 var caretmem = ""
 var caret = 0;
 var width, height;
-const socket = io();
+const socket = io.connect(URL);
 var block;
 
 String.prototype.replaceAt = function(index, char) {
