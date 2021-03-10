@@ -1,5 +1,5 @@
 
-const PORT = /*process.env.PORT || */ 3000;
+const PORT = process.env.PORT || 3000;
 var server = require('express')();
 var http = require('https').createServer(server);
 
