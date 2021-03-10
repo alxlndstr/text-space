@@ -1,8 +1,10 @@
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 var server = require('express')();
 var http = require('https').createServer(server);
+var INDEX = '/page/index.htm';
 
+//server.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const options = {
 	cors: {
