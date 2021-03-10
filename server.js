@@ -17,7 +17,7 @@ const block = 1;
 var text = "";
 const pwidth = "500";
 const pheight = "500";
-
+console.log("init");
 
 for (i = 0;i<parseInt(pwidth)*parseInt(pheight);i++)
 {text += " "} //  'ˇ' + (parseInt(pwidth)*parseInt(pheight)) + 'ˇ'
