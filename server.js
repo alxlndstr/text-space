@@ -42,24 +42,24 @@ io.on("connection", socket => {
 
 
 
-express.use(function(req, res, next) {
+server.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
 
-express.get('/', (req,res) => {
+server.get('/', (req,res) => {
 		res.sendFile(__dirname + '/page/index.htm');
 });
 
-express.get('/src/:filename', (req,res) => {
+server.get('/src/:filename', (req,res) => {
 	res.sendFile(__dirname + '/src/' + req.params.filename);
 });
 
 
-express.get('/style', (req,res) => {
+server.get('/style', (req,res) => {
 	res.sendFile(__dirname + '/style/stylesheet.css');
 });
 
-express.listen(PORT, () => {
+server.listen(PORT, () => {
 
 })
