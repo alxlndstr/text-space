@@ -1,20 +1,26 @@
+const express = require('express');
+const socketIO = require('socket.io');
 
 const PORT = process.env.PORT || 3000;
-var server = require('express')();
-var http = require('http').createServer(server);
-var INDEX = '/page/index.htm';
-//server.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-server.listen(PORT, () => console.log(`Listening on ${PORT}`));
-const options = {
-	cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
-}}
-const fs = require('fs');
+const INDEX = '/page/index.htm';
 
-const sio = require('socket.io');
+const server = express()
+.get('/', (req,res) => {
+	res.sendFile(__dirname + '/page/index.htm');
+})
 
-var io = sio(server) 
+.get('/src/:filename', (req,res) => {
+	res.sendFile(__dirname + '/src/' + req.params.filename);
+})
+
+
+.get('/style', (req,res) => {
+	res.sendFile(__dirname + '/style/stylesheet.css');
+})
+.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = socketIO(server);
+
 
 const block = 1;
 var text = "";
