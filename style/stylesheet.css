@@ -14,7 +14,6 @@ div {
 	width: var(--pwidth);
 	height: var(--pheight);
 	color: #EEEEEE;
-	background-color: #111111;
 	resize:none;
 	display: block;
 	white-space: break-spaces;
