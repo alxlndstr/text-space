@@ -46,7 +46,6 @@ express.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
-httpServer.listen(3000);
 
 express.get('/', (req,res) => {
 		res.sendFile(__dirname + '/page/index.htm');
