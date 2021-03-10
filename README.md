@@ -1,3 +1,1 @@
-live updated open text space
-
-use arrow keys to move caret
+live multiuser editable text field.
