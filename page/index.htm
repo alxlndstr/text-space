@@ -6,7 +6,7 @@
 
   <script src="/src/socket.io.min.js"></script>
   <script type="text/javascript">
-  const URL = "https://text-space.herokuapp.com:3000/";
+  const URL = "https://text-space.herokuapp.com/";
 
 
 const body = document.querySelector('body');
@@ -18,7 +18,7 @@ var selection;
 var caretmem = ""
 var caret = 0;
 var width, height;
-var socket = io();
+var socket = io.connect(URL);
 var block;
 
 String.prototype.replaceAt = function(index, char) {
