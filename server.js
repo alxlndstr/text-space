@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 80;
 var server = require('express')();
 var http = require('https').createServer(server);
 var INDEX = '/page/index.htm';
-const io = require('socket.io').listen(server);
+const io = require('socket.io');
 //server.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const options = {
@@ -13,7 +13,7 @@ const options = {
 }}
 const fs = require('fs');
 
-
+io.listen(server);
 
 const block = 1;
 var text = "";
