@@ -6,7 +6,6 @@
 
   <script src="/src/socket.io.min.js"></script>
   <script type="text/javascript">
-  const URL = "http://text-space.herokuapp.com:3001/";
 
 
 const body = document.querySelector('body');
@@ -94,7 +93,7 @@ socket.onAny((event, ...args) => {
 			height = parseInt(args[0].height);
 			block = args[0].block;
 			document.documentElement.style.setProperty('--pwidth', args[0].width + 'ch');
-			document.documentElement.style.setProperty('--pheight', args[0].height + 'ex');
+			document.documentElement.style.setProperty('--pheight', 16.8*args[0].height + 'px');
 			mainstring = args[0].alltext;
 			init_keyevent();
 			renderCaret();
