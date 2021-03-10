@@ -28,7 +28,7 @@ String.prototype.replaceAt = function(index, char) {
 
 io.on("connection", socket => {   
 	console.log("client connected");
-	setTimeout(() => {socket.emit('init', { 'alltext': text, 'width': pwidth, 'height': pheight, 'block':block})},1000);
+	setTimeout(() => {socket.emit('init', { 'alltext': text, 'width': pwidth, 'height': pheight, 'block':block})},5000);
 	
 	socket.on('newChar', data => 
 	{
