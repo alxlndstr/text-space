@@ -1,8 +1,7 @@
 
 const PORT = process.env.PORT || 3000;
-var express = require('express');
-
-var server = express();
+var server = require('express')();
+var http = require('http').createServer(server);
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 const options = {
@@ -12,7 +11,7 @@ const options = {
 }}
 const fs = require('fs');
 
-const io = require('socket.io')(server);
+const io = require('socket.io')(http);
 
 const block = 1;
 var text = "";
