@@ -55,16 +55,3 @@ server.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });*/
-
-server.get('/', (req,res) => {
-	res.sendFile(__dirname + '/page/index.htm');
-});
-
-server.get('/src/:filename', (req,res) => {
-	res.sendFile(__dirname + '/src/' + req.params.filename);
-});
-
-
-server.get('/style', (req,res) => {
-	res.sendFile(__dirname + '/style/stylesheet.css');
-});
