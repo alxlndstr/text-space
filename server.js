@@ -1,8 +1,12 @@
-const express = require('express')();
-const port = 80;
+
+const PORT = process.env.PORT || 3000;
+const express = require('express')()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 const fs = require('fs');
 const httpServer = require("http").createServer(express);
-const options = {};
+
 const io = require('socket.io')(httpServer, {
 	cors: {
     origin: "*",
