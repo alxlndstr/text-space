@@ -11,7 +11,7 @@ const options = {
 }}
 const fs = require('fs');
 
-const io = require('socket.io')(http);
+const io = require('socket.io')(http,options);
 
 const block = 1;
 var text = "";
