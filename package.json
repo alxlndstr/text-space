@@ -7,6 +7,6 @@
   },
     "dependencies": {
     "socket.io": "x",
-    "express": "x",
+    "express": "x"
   }
 }
