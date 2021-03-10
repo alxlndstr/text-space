@@ -36,13 +36,12 @@ String.prototype.replaceAt = function(index, char) {
 }
 
 io.on("connection", socket => {   
-	console.log("client connected");
+	console.log("client " + socket.id + " connected");
 	setTimeout(() => {console.log("sending data to client..."); socket.emit('init', { 'alltext': text, 'width': pwidth, 'height': pheight, 'block':block})},5000);
 	
 	socket.on('newChar', data => 
 	{
 		text = text.replaceAt(data.pos, data.char);
-		console.log(data.pos + ' | ' + data.char);
 		io.sockets.emit('repChar', {'pos' : data.pos, char: data.char})
 	});
 	
