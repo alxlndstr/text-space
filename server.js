@@ -21,7 +21,6 @@ var text = "";
 const pwidth = "500";
 const pheight = "500";
 console.log("init");
-io.listen(3001);
 
 for (i = 0;i<parseInt(pwidth)*parseInt(pheight);i++)
 {text += " "} //  'ˇ' + (parseInt(pwidth)*parseInt(pheight)) + 'ˇ'
