@@ -1,5 +1,5 @@
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 80;
 var server = require('express')();
 var http = require('https').createServer(server);
 var INDEX = '/page/index.htm';
