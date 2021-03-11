@@ -1,6 +1,4 @@
 
-const URL = "https://text-space.herokuapp.com:3000/";
-
 
 const body = document.querySelector('body');
 
@@ -9,9 +7,9 @@ var mainstring = "";
 var caretstring = ""; 
 var selection;
 var caretmem = ""
-var caret = 0;
+var caret = 12000;
 var width, height;
-const socket = io.connect(URL);
+var socket = io();
 var block;
 
 String.prototype.replaceAt = function(index, char) {
@@ -30,6 +28,7 @@ document.addEventListener('keypress',  (e) => {
 function init_keyevent() {
 body.onkeydown = function(e) {
 	var step=1;
+	var leftedge = (caret%width == 0)
 	if((caret%width) == width-2){step=2;}
 	var keyCode = e.keyCode;
 	caretmem = mainstring.substr(caret,1);
@@ -52,10 +51,15 @@ body.onkeydown = function(e) {
 	if (keyCode == 39 && caret<width*height)
 	{
 		if((caret%width) == width-2){step=2*!block;}
-		e.preventDefault();caret += step; 
+		e.preventDefault();
+		caret += step; 
 	}
-	if (keyCode == 8 && caret > 0)
-	{	e.preventDefault();socket.emit('newChar', {'char': ' ', 'pos' : caret-1}); caret--;}
+	if (keyCode == 8 && !leftedge)
+	{	
+		e.preventDefault();
+		socket.emit('newChar', {'char': ' ', 'pos' : caret-1}); 
+		caret-=step;
+	}
 
 	renderCaret();
 
@@ -87,7 +91,6 @@ socket.onAny((event, ...args) => {
 			height = parseInt(args[0].height);
 			block = args[0].block;
 			document.documentElement.style.setProperty('--pwidth', args[0].width + 'ch');
-			document.documentElement.style.setProperty('--pheight', args[0].height + 'ch');
 			mainstring = args[0].alltext;
 			init_keyevent();
 			renderCaret();
