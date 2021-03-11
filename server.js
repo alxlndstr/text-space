@@ -62,23 +62,44 @@ io.on("connection", socket => {
 	var alltext = "";
 
 	setTimeout(() => {
-		client[cli] = {x:0,y:0,m:' '};
+
 		for (let i = 0; i<pheight;i++)
 			alltext += line[i];
-		socket.emit('init', {'alltext':alltext, 'width': pwidth, 'height': pheight, 'block':block})
+		socket.emit('init', {'alltext':alltext, 'width': pwidth, 'height': pheight, 'block':block});
+		setTimeout(() => {client.forEach(el => {socket.emit('insertChar', {'posX' : el.x, 'posY': el.y, 'char': '|'});})}, 1000)
+		socket.broadcast.emit('insertChar', {'posX' : 0, 'posY': 0, 'char': '|'}); //{'x': data.x, 'y' : data.y, 'lx': data.lx, 'ly': data.ly, 'mem': data.mem})
+
+		client[cli] = {x:0,y:0,m:' '};
 		console.log("sending data to " + socket.id); 
 	},2500);
 
-	
+	socket.on("disconnect", (reason) => {
+		socket.broadcast.emit('insertChar', {'posX' : client[socket.id].x, 'posY': client[socket.id].y, 'char': lineAt(client[socket.id].x, client[socket.id].y)});
+		console.log("client " + socket.id + " disconnected.")
+		delete client[socket.id];
+	});
 	socket.on('newChar', data => 
 	{
 		setChar(data.posX, data.posY, data.char);
 		io.sockets.emit('insertChar', {'posX' : data.posX, 'posY': data.posY, char: data.char})
 	});
-	socket.on('moveCaret', data =>
+	
+	socket.on('moveCaret', data => 
 	{
-		socket.broadcast.emit('insertChar', {'posX' : client[socket.id].x, 'posY': client[socket.id].y, 'char': lineAt(client[socket.id].x, client[socket.id].y)}); //{'x': data.x, 'y' : data.y, 'lx': data.lx, 'ly': data.ly, 'mem': data.mem})
-		client[socket.id] = {x: data.posX, y:data.posY, m:lineAt(client[socket.id].x, client[socket.id].y)};
+		/*let populated = 0;
+		for(var key in client){
+			if (client[key].x == client[socket.id].x && client[key].y == client[socket.id].y && key != socket.id) {
+				populated = 1;
+			}
+		} 
+		if (!populated) {*/
+		socket.broadcast.emit('insertChar', {'posX' : client[socket.id].x, 'posY': client[socket.id].y, 'char': lineAt(client[socket.id].x, client[socket.id].y)})//}; //{'x': data.x, 'y' : data.y, 'lx': data.lx, 'ly': data.ly, 'mem': data.mem})}
+		client[socket.id] = 
+		{
+			x: data.posX, 
+			y:data.posY, 
+			m:lineAt(client[socket.id].x, client[socket.id].y)
+		};
 		socket.broadcast.emit('insertChar', {'posX' : client[socket.id].x, 'posY': client[socket.id].y, 'char': '|'}); //{'x': data.x, 'y' : data.y, 'lx': data.lx, 'ly': data.ly, 'mem': data.mem})
 	});
 	
