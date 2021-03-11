@@ -15,54 +15,71 @@ const server = express()
 
 .get('/clear21215', (req,res) => {
 	initLine(() => {socket.emit('init', { 'alltext': text, 'width': pwidth, 'height': pheight, 'block':block})});
-});
+})
 
 .get('/style', (req,res) => {
 	res.sendFile(__dirname + '/style/stylesheet.css');
 })
 .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
+
 const io = socketIO(server);
 
-
+var client = new Array();
 const block = 1;
 var text = "";
 const pwidth = "500";
 const pheight = "500";
 
-var line;
+var line = [];
 function initLine(callback = -1)
 {
-line = new Array(pheight);
-    line.forEach((element) => {
-        for(let i=0; i<pwidth;i++){element += ' ';}
-    });
-console.log("init " + pwidth + "x" + "pheight");
-if(callback!=-1)
-{return callback()}
+
+    for(let i=0; i<pheight;i++) {
+		line[i] = ' '.repeat(pwidth);
+    };
+
+	if(callback!=-1){return callback()}
 	
 }
-
-
-for (i = 0;i<parseInt(pwidth)*parseInt(pheight);i++)
-{text += " "} //  'ˇ' + (parseInt(pwidth)*parseInt(pheight)) + 'ˇ'
-
+initLine();
+function lineAt(x,y)
+{
+	return line[y].substr(x,1);
+}
 String.prototype.replaceAt = function(index, char) {
     return this.substr(0, index) + char + this.substr(index + 1);
 }
-function setChar(x,y,char)
+function setChar(x,y,chr)
 {
-line[y].replaceAt(x,char);
+	line[y] = line[y].replaceAt(x,chr);
 }
 
-io.on("connection", socket => {   
+io.on("connection", socket => {
+	let cli = socket.id;
+
 	console.log("client " + socket.id + " connected");
-	setTimeout(() => {console.log("sending data to client..."); socket.emit('init', { 'alltext': text, 'width': pwidth, 'height': pheight, 'block':block})},2500);
+	var alltext = "";
+
+	setTimeout(() => {
+		client[cli] = {x:0,y:0,m:' '};
+		for (let i = 0; i<pheight;i++)
+			alltext += line[i];
+		socket.emit('init', {'alltext':alltext, 'width': pwidth, 'height': pheight, 'block':block})
+		console.log("sending data to " + socket.id); 
+	},2500);
+
 	
 	socket.on('newChar', data => 
 	{
-		text = text.replaceAt(data.posX, data.char);
-		io.sockets.emit('repChar', {'posX' : data.posY, 'posY': data.posY, char: data.char})
+		setChar(data.posX, data.posY, data.char);
+		io.sockets.emit('insertChar', {'posX' : data.posX, 'posY': data.posY, char: data.char})
+	});
+	socket.on('moveCaret', data =>
+	{
+		socket.broadcast.emit('insertChar', {'posX' : client[socket.id].x, 'posY': client[socket.id].y, 'char': lineAt(client[socket.id].x, client[socket.id].y)}); //{'x': data.x, 'y' : data.y, 'lx': data.lx, 'ly': data.ly, 'mem': data.mem})
+		client[socket.id] = {x: data.posX, y:data.posY, m:lineAt(client[socket.id].x, client[socket.id].y)};
+		socket.broadcast.emit('insertChar', {'posX' : client[socket.id].x, 'posY': client[socket.id].y, 'char': '|'}); //{'x': data.x, 'y' : data.y, 'lx': data.lx, 'ly': data.ly, 'mem': data.mem})
 	});
 	
   });

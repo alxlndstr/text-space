@@ -5,7 +5,6 @@ body {
 	background-color: #111111;
 }
 div { 
-	position: absolute; left: 0; top: 0;
 	padding: none;
 	font-family: "Lucida Console", "Courier New", monospace;
 	font-size: 14;
